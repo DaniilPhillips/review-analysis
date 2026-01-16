@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data & Models (опционально — можно закомментировать для версионирования)
+# data/*.csv
+# models/*.keras
+# models/*.pkl
+
+# Logs
+logs/*.png
+logs/*.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# TensorFlow
+*.h5
+checkpoint
