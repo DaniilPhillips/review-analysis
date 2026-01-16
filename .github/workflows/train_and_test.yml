@@ -1,11 +1,7 @@
 name: Train and Test ML Model
 
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-  workflow_dispatch:  # Ручной запуск
+  workflow_dispatch:  # Только ручной запуск
 
 jobs:
   train-and-evaluate:
