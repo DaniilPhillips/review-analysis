@@ -111,7 +111,7 @@ class ReputationAnalytics:
         plt.tight_layout()
         plt.savefig(LOGS_DIR / "reputation_analysis.png", dpi=150)
         plt.close()
-        print(f"✅ Сохранено: {LOGS_DIR / 'reputation_analysis.png'}")
+        print(f"Сохранено: {LOGS_DIR / 'reputation_analysis.png'}")
     
     def plot_subject_comparison(self, df: pd.DataFrame, top_n: int = 10):
         """Сравнение топ-N субъектов"""
@@ -136,7 +136,7 @@ class ReputationAnalytics:
         plt.tight_layout()
         plt.savefig(LOGS_DIR / "subject_comparison.png", dpi=150)
         plt.close()
-        print(f"✅ Сохранено: {LOGS_DIR / 'subject_comparison.png'}")
+        print(f"Сохранено: {LOGS_DIR / 'subject_comparison.png'}")
     
     def generate_report(self, df: pd.DataFrame) -> str:
         """Генерация текстового отчёта"""
@@ -147,22 +147,22 @@ class ReputationAnalytics:
         report.append("=" * 60)
         report.append("АНАЛИТИЧЕСКИЙ ОТЧЁТ: ВЛИЯНИЕ ОТЗЫВОВ НА РЕПУТАЦИЮ")
         report.append("=" * 60)
-        report.append(f"\n📊 Общая статистика:")
+        report.append(f"\nОбщая статистика:")
         report.append(f"   Всего отзывов: {len(df)}")
         report.append(f"   Субъектов: {df['subject_id'].nunique()}")
         report.append(f"   Категорий: {df['category'].nunique()}")
         
-        report.append(f"\n📈 Распределение тональности:")
+        report.append(f"\nРаспределение тональности:")
         for cls, name in REPUTATION_CLASSES.items():
             count = (df["sentiment_class"] == cls).sum()
             pct = count / len(df) * 100
             report.append(f"   {name}: {count} ({pct:.1f}%)")
         
-        report.append(f"\n🏆 Топ-5 субъектов по репутации:")
+        report.append(f"\nТоп-5 субъектов по репутации:")
         for _, row in subject_stats.head(5).iterrows():
             report.append(f"   {row['subject_name']}: {row['avg_reputation']:.3f}")
         
-        report.append(f"\n⚠️ Проблемные субъекты (репутация < -0.3):")
+        report.append(f"\n⚠Проблемные субъекты (репутация < -0.3):")
         problematic = self.find_problematic_areas(df)
         if len(problematic) == 0:
             report.append("   Нет проблемных субъектов")
@@ -170,7 +170,7 @@ class ReputationAnalytics:
             for _, row in problematic.head(5).iterrows():
                 report.append(f"   {row['subject_name']}: {row['avg_reputation']:.3f}")
         
-        report.append(f"\n📦 Рейтинг категорий:")
+        report.append(f"\nРейтинг категорий:")
         for _, row in category_stats.iterrows():
             report.append(f"   {row['category']}: {row['avg_reputation']:.3f}")
         
@@ -196,7 +196,7 @@ def main():
     # Сохранение отчёта
     with open(LOGS_DIR / "analytics_report.txt", "w", encoding="utf-8") as f:
         f.write(report)
-    print(f"\n✅ Отчёт сохранён: {LOGS_DIR / 'analytics_report.txt'}")
+    print(f"\nОтчёт сохранён: {LOGS_DIR / 'analytics_report.txt'}")
 
 
 if __name__ == "__main__":

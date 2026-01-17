@@ -23,7 +23,7 @@ from config import DATA_DIR, MODELS_DIR, LOGS_DIR
 def generate_dataset():
     """Генерация синтетического датасета"""
     print("\n" + "="*60)
-    print("📝 ГЕНЕРАЦИЯ СИНТЕТИЧЕСКОГО ДАТАСЕТА")
+    print("ГЕНЕРАЦИЯ СИНТЕТИЧЕСКОГО ДАТАСЕТА")
     print("="*60)
     
     from src.data_generator import ReviewDataGenerator
@@ -32,7 +32,7 @@ def generate_dataset():
     df = generator.generate_dataset()
     generator.save_dataset(df)
     
-    print("\n📊 Примеры сгенерированных отзывов:")
+    print("\nПримеры сгенерированных отзывов:")
     for i, row in df.head(3).iterrows():
         print(f"\n   [{row['subject_name']}] Оценка: {row['rating']}/5")
         print(f"   Категория: {row['category']}")
@@ -44,7 +44,7 @@ def generate_dataset():
 def train_model():
     """Обучение модели"""
     print("\n" + "="*60)
-    print("🚀 ОБУЧЕНИЕ МОДЕЛИ")
+    print("ОБУЧЕНИЕ МОДЕЛИ")
     print("="*60)
     
     from src.training import ModelTrainer
@@ -65,7 +65,7 @@ def train_model():
 def run_analytics():
     """Запуск аналитики"""
     print("\n" + "="*60)
-    print("📊 АНАЛИТИКА РЕПУТАЦИИ")
+    print("АНАЛИТИКА РЕПУТАЦИИ")
     print("="*60)
     
     import pandas as pd
@@ -87,7 +87,7 @@ def run_analytics():
 def demo_predictions():
     """Демонстрация предсказаний на новых отзывах"""
     print("\n" + "="*60)
-    print("🔮 ДЕМОНСТРАЦИЯ ПРЕДСКАЗАНИЙ")
+    print("ДЕМОНСТРАЦИЯ ПРЕДСКАЗАНИЙ")
     print("="*60)
     
     from src.analytics import ReputationAnalytics
@@ -110,7 +110,7 @@ def demo_predictions():
     class_probs, rep_indices = analytics.predict_reputation(texts, ratings, categories)
     
     labels = ["негативная", "нейтральная", "позитивная"]
-    print("\n📋 Результаты анализа:")
+    print("\nРезультаты анализа:")
     for i, (text, rating, cat) in enumerate(test_reviews):
         pred_class = np.argmax(class_probs[i])
         confidence = class_probs[i][pred_class] * 100
@@ -149,7 +149,7 @@ def main():
         if args.demo:
             demo_predictions()
     
-    print("\n✅ Выполнение завершено!")
+    print("\nВыполнение завершено!")
 
 
 if __name__ == "__main__":

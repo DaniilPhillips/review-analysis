@@ -211,7 +211,7 @@ class ReputationModel:
             }
         )
         
-        print("✅ Модель построена:")
+        print("Модель построена:")
         self.model.summary()
     
     def get_callbacks(self, model_path: Path = None) -> list:
@@ -342,13 +342,13 @@ class ReputationModel:
         """Сохранение модели"""
         path = path or MODELS_DIR / "reputation_model.keras"
         self.model.save(str(path))
-        print(f"✅ Модель сохранена: {path}")
+        print(f"Модель сохранена: {path}")
     
     def load(self, path: Path = None):
         """Загрузка модели"""
         path = path or MODELS_DIR / "reputation_model.keras"
         self.model = keras.models.load_model(str(path))
-        print(f"✅ Модель загружена: {path}")
+        print(f"Модель загружена: {path}")
 
 
 def main():
@@ -368,7 +368,7 @@ def main():
     # Тестовое предсказание
     class_probs, rep_index = model.predict(X_text, X_rating, X_category)
     
-    print("\n📊 Тестовое предсказание:")
+    print("\nТестовое предсказание:")
     print(f"   Размер вероятностей классов: {class_probs.shape}")
     print(f"   Размер индексов репутации: {rep_index.shape}")
     print(f"   Пример вероятностей: {class_probs[0]}")

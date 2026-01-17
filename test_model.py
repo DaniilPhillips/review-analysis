@@ -25,7 +25,7 @@ from src.model import ReputationModel
 
 def load_model_and_preprocessor():
     """Загрузка обученной модели и препроцессора"""
-    print("📦 Загрузка модели...")
+    print("Загрузка модели...")
     
     # Загрузка препроцессора
     with open(MODELS_DIR / "preprocessor.pkl", "rb") as f:
@@ -81,12 +81,12 @@ def display_prediction(row, pred_class, pred_probs, pred_index):
     pred_label = labels[pred_class]
     
     is_correct = row["sentiment_class"] == pred_class
-    status = "✅" if is_correct else "❌"
+    status = "Correct" if is_correct else "Incorrect"
     
     print("\n" + "═" * 70)
-    print(f"📝 Текст: {row['review_text']}")
-    print(f"⭐ Оценка: {row['rating']}/5 | 📦 Категория: {row['category']}")
-    print(f"🏢 Субъект: {row['subject_name']}")
+    print(f"Текст: {row['review_text']}")
+    print(f"Оценка: {row['rating']}/5 | Категория: {row['category']}")
+    print(f"Субъект: {row['subject_name']}")
     print("─" * 70)
     print(f"   Истинная тональность:     {true_label}")
     print(f"   Предсказанная тональность: {pred_label} {status}")
@@ -113,7 +113,7 @@ def main():
     model, preprocessor = load_model_and_preprocessor()
     test_df = get_test_data(preprocessor)
     
-    print(f"\n📊 Размер тестовой выборки: {len(test_df)}")
+    print(f"\nРазмер тестовой выборки: {len(test_df)}")
     
     # Фильтрация по классу
     if args.target_class is not None:
@@ -128,7 +128,7 @@ def main():
     # Выбор примеров
     if args.errors:
         # Режим поиска ошибок — проходим по всем и показываем только ошибки
-        print("\n🔍 Поиск ошибочных предсказаний...")
+        print("\nПоиск ошибочных предсказаний...")
         errors_found = 0
         
         for idx, row in test_df.iterrows():
@@ -146,9 +146,9 @@ def main():
                     break
         
         if errors_found == 0:
-            print("✅ Ошибок не найдено!")
+            print("Ошибок не найдено!")
         else:
-            print(f"\n📈 Найдено ошибок: {errors_found}")
+            print(f"\nНайдено ошибок: {errors_found}")
     else:
         # Обычный режим — случайные примеры
         samples = test_df.sample(n=min(args.num, len(test_df)))
@@ -156,7 +156,7 @@ def main():
         correct = 0
         total_mae = 0
         
-        print(f"\n🎲 Случайные примеры из тестовой выборки:")
+        print(f"\nСлучайные примеры из тестовой выборки:")
         
         for idx, row in samples.iterrows():
             pred_probs, pred_index = predict_single(
@@ -172,7 +172,7 @@ def main():
         
         # Итоговая статистика
         print("\n" + "═" * 70)
-        print(f"📊 ИТОГО по {len(samples)} примерам:")
+        print(f"ИТОГО по {len(samples)} примерам:")
         print(f"   Точность классификации: {correct}/{len(samples)} ({correct/len(samples)*100:.1f}%)")
         print(f"   Средняя ошибка индекса (MAE): {total_mae/len(samples):.3f}")
         print("═" * 70)

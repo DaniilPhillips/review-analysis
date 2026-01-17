@@ -33,7 +33,7 @@ class ModelTrainer:
     def load_data(self, filepath: Path = None) -> pd.DataFrame:
         filepath = filepath or DATA_DIR / "synthetic_dataset.csv"
         df = pd.read_csv(filepath)
-        print(f"✅ Загружено {len(df)} записей")
+        print(f"Загружено {len(df)} записей")
         return df
     
     def split_data(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -42,7 +42,7 @@ class ModelTrainer:
         val_ratio = self.config["validation_split"] / (1 - self.config["test_split"])
         train_df, val_df = train_test_split(train_val_df, test_size=val_ratio,
                                             random_state=42, stratify=train_val_df["sentiment_class"])
-        print(f"📊 Train: {len(train_df)}, Val: {len(val_df)}, Test: {len(test_df)}")
+        print(f"Train: {len(train_df)}, Val: {len(val_df)}, Test: {len(test_df)}")
         return train_df, val_df, test_df
     
     def prepare_data(self, train_df, val_df, test_df) -> Dict[str, np.ndarray]:
@@ -61,7 +61,7 @@ class ModelTrainer:
     
     def train(self, data: Dict[str, np.ndarray]) -> 'ModelTrainer':
         self.model = ReputationModel(self.preprocessor.get_vocab_size(), self.preprocessor.get_num_categories())
-        print("\n🚀 Начало обучения...")
+        print("\nНачало обучения...")
         self.history = self.model.fit(
             X_text=data["train_X_text"], X_rating=data["train_X_rating"],
             X_category=data["train_X_category"], y_class=data["train_y_class"],
@@ -73,11 +73,11 @@ class ModelTrainer:
             ),
             batch_size=self.config["batch_size"], epochs=self.config["epochs"], verbose=1
         )
-        print("✅ Обучение завершено!")
+        print("Обучение завершено!")
         return self
     
     def evaluate(self, data: Dict[str, np.ndarray]) -> Dict[str, float]:
-        print("\n📊 Оценка модели...")
+        print("\nОценка модели...")
         class_probs, rep_indices = self.model.predict(data["test_X_text"], data["test_X_rating"], data["test_X_category"])
         y_pred_class = np.argmax(class_probs, axis=1)
         y_true_class = data["test_y_class"]
@@ -86,7 +86,7 @@ class ModelTrainer:
         f1 = f1_score(y_true_class, y_pred_class, average="macro")
         mae = mean_absolute_error(data["test_y_index"], rep_indices.flatten())
         
-        print(f"\n📈 Accuracy: {accuracy:.4f}, F1: {f1:.4f}, MAE: {mae:.4f}")
+        print(f"\nAccuracy: {accuracy:.4f}, F1: {f1:.4f}, MAE: {mae:.4f}")
         print(classification_report(y_true_class, y_pred_class, target_names=["негативная", "нейтральная", "позитивная"]))
         return {"accuracy": accuracy, "f1": f1, "mae": mae}
     

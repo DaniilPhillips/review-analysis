@@ -303,7 +303,7 @@ class ReviewDataGenerator:
     def save_dataset(self, df: pd.DataFrame, filename: str = "synthetic_dataset.csv"):
         filepath = DATA_DIR / filename
         df.to_csv(filepath, index=False, encoding="utf-8")
-        print(f"✅ Датасет сохранён: {filepath}")
+        print(f"Датасет сохранён: {filepath}")
         print(f"   Количество записей: {len(df)}")
         print(f"   Распределение классов:")
         for cls, count in df["sentiment_class"].value_counts().sort_index().items():
@@ -317,9 +317,9 @@ def main():
     df = generator.generate_dataset()
     generator.save_dataset(df)
     
-    print("\n📊 Примеры отзывов:")
+    print("\nПримеры отзывов:")
     for _, row in df.sample(5).iterrows():
-        print(f"\n   [{row['subject_name']}] ⭐{row['rating']}")
+        print(f"\n   [{row['subject_name']}] {row['rating']}")
         print(f"   {row['review_text']}")
         labels = ["негативная", "нейтральная", "позитивная"]
         print(f"   → {labels[row['sentiment_class']]} ({row['reputation_index']:.2f})")

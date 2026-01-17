@@ -147,7 +147,7 @@ class TextPreprocessor:
             self.subject_to_index = {subj: i for i, subj in enumerate(unique_subjects)}
         
         self.is_fitted = True
-        print(f"✅ Препроцессор обучен:")
+        print(f"Препроцессор обучен:")
         print(f"   Размер словаря: {len(self.word_to_index)}")
         print(f"   Категорий: {len(self.category_to_index)}")
         print(f"   Субъектов: {len(self.subject_to_index)}")
@@ -291,7 +291,7 @@ def main():
     # Преобразуем данные
     X_text, X_rating, X_category, y_class, y_index = preprocessor.transform(df)
     
-    print("\n📊 Результаты предобработки:")
+    print("\nРезультаты предобработки:")
     print(f"   X_text shape: {X_text.shape}")
     print(f"   X_rating shape: {X_rating.shape}")
     print(f"   X_category shape: {X_category.shape}")
@@ -299,7 +299,7 @@ def main():
     print(f"   y_index shape: {y_index.shape}")
     
     # Пример декодирования
-    print("\n🔄 Пример преобразования:")
+    print("\nПример преобразования:")
     sample_text = df["review_text"].iloc[0]
     print(f"   Оригинал: {sample_text}")
     sequence = preprocessor.text_to_sequence(sample_text)
